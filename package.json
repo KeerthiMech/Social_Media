@@ -1,0 +1,21 @@
+{
+  "name": "learning_express",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.cjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.1",
+    "mongoose": "^8.7.2",
+    "nodemailer": "^6.9.15",
+    "nodemon": "^3.1.7",
+    "otp-generator": "^4.0.1"
+  }
+}
