@@ -10,20 +10,16 @@ const port = 3000;
 const mongodbURL = "mongodb+srv://rhkeerthimongo:Vasannmongo@cluster0.evcwuds.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 app.use(bodyparser.json());
 app.use(express.json());
-app.use(credroute);
-app.get("/auth",credroute);
 
 app.get("/",(req,res) => {
   res.send("Hello World");
 });
+app.use("/auth",credroute);
 app.listen(port,(req,res) => {
   console.log(`Server is running on port ${port}`);
 
 });
-mongoose.connect(mongodbURL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+mongoose.connect(mongodbURL)
 .then(() => {
   console.log('Connected to MongoDB successfully');
 })

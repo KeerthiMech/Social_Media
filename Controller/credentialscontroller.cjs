@@ -4,7 +4,7 @@ const login_schema = require('../Model/login-schema.cjs');
 const OTP =require('../Model/otp_schema.cjs');
 
 
-const logincontroller = async(req, res, next) => {
+async function logincontroller(req, res, next) {
     const {username, mailid, password} = req.body;
     try {
         existing_login = await login_schema.findOne({username :username} || {mailid : mailid})
@@ -17,7 +17,7 @@ const logincontroller = async(req, res, next) => {
     }
     res.json(username,mailid);
 }
-const signincontroller = async (req, res, next) => {
+async function signincontroller(req, res, next) {
     res.json({"result" : "signin is working"});
       console.log("signin checker log");
        const {username, mailid, password, phonenumber, profile_pic, name} = req.body;
@@ -49,7 +49,7 @@ const signincontroller = async (req, res, next) => {
     res.status(201).json({user: createuser.toObject({ getters: true })});  
 
 }
-const sendOTP = async (req, res) => {
+async function sendOTP(req, res) {
     try {
       const { email } = req.body;
       // Check if user is already present
@@ -84,6 +84,4 @@ const sendOTP = async (req, res) => {
     }
   };
 
-exports.signin = signincontroller;
-exports.login = logincontroller;
-exports.otp = sendOTP;
+module.exports = {logincontroller,signincontroller, sendOTP};
