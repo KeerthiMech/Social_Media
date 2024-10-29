@@ -4,6 +4,7 @@ const bodyparser = require('body-parser');
 
 
 const credroute = require('./Route/credentialsroute.cjs');
+const homeroute = require('./Route/togglebarroute.cjs');
 
 const app = express();
 const port = 3000;
@@ -15,6 +16,7 @@ app.get("/",(req,res) => {
   res.send("Hello World");
 });
 app.use("/auth",credroute);
+app.use('/home',homeroute);
 app.listen(port,(req,res) => {
   console.log(`Server is running on port ${port}`);
 

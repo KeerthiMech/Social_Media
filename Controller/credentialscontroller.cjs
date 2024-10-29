@@ -2,6 +2,7 @@ const otpGenerator =require('otp-generator');
 
 const login_schema = require('../Model/login-schema.cjs');
 const OTP =require('../Model/otp_schema.cjs');
+const HTTP_error = require('../util/error_handler.cjs');
 
 
 async function logincontroller(req, res, next) {
@@ -10,7 +11,8 @@ async function logincontroller(req, res, next) {
         existing_login = await login_schema.findOne({username :username} || {mailid : mailid})
     }
     catch(err) {
-        console.log(err);
+        const error = new HTTP_error('user already exists',500);
+        return next(error);
     }
     if(!existing_login || password !== password) {
         res.status(401).json({message: "Invalid Credentials"});
@@ -25,8 +27,8 @@ async function signincontroller(req, res, next) {
     try {
         existingcheck = await login_schema.findOne({username : username} || {mailid : mailid})
     }catch(err) {
-        console.log("user already exists error enountered");
-        return next(err);
+      const error = new HTTP_error('user already exists',500);
+      return next(error);
     }
     if(existingcheck){
         res.status(400).json({message: "User already exists"});
