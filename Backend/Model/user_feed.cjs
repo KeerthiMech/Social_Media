@@ -3,20 +3,24 @@ const Schema = mongoose.Schema;
 
 const postSchema = new Schema(
     {
+        userid : {
+            type :String,
+            required : true
+        },
         username : {
             type : String,
             required : true,
         },
         music : {
-            type : Enumerator,
+            type : String,
             required : true,
         },
         profile_pic : {
-            type : Image,
+            type : String,
             required : false,
         },
         feed_media : {
-            type : Image || VideoColorSpace,
+            type : String,
             required : true
         },
         likes : {

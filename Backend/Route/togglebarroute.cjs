@@ -1,10 +1,12 @@
 const express = require('express');
 toggle_router= express.Router();
 
-toggle_router.router('/search').get(search)
-toggle_router.router('/feed').get(feed)
-toggle_router.router('/newpost').get(newpost)
-toggle_router.router('/reels').get(reels)
-toggle_router.router('/myprofile').get(myprofile)
+const {search,newpost,reels,myprofile} = require('../Controller/feedcontroller.cjs');
 
-exports.default = toggle_router;
+toggle_router.route('/search').get(search)
+toggle_router.route('/feed').get(search)
+toggle_router.route('/newpost').post(newpost)
+toggle_router.route('/reels').get(reels)
+toggle_router.route('/myprofile').get(myprofile)
+
+module.exports = toggle_router;
