@@ -7,6 +7,7 @@ const HTTP_error = require('../util/error_handler.cjs');
 
 async function logincontroller(req, res, next) {
     const {username, mailid, password} = req.body;
+    var existing_login;
     try {
         existing_login = await login_schema.findOne({username :username} || {mailid : mailid})
     }
@@ -14,10 +15,21 @@ async function logincontroller(req, res, next) {
         const error = new HTTP_error('user already exists',500);
         return next(error);
     }
-    if(!existing_login || password !== password) {
+    if(existing_login) {
+      try { 
+        let password_check =  existing_login.password;
+        if(password_check === password) {;
+        }
+      }catch(err) {
+        const error = new HTTP_error('invalid password',500);
+        return next(error);
+      }
+    }
+    res.json({username,mailid})
+    if(!existing_login && password !== password) {
         res.status(401).json({message: "Invalid Credentials"});
     }
-    res.json(username,mailid);
+    
 }
 async function signincontroller(req, res, next) {
     res.json({"result" : "signin is working"});
