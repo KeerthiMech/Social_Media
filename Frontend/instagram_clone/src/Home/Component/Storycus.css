@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fafafa;
+  overflow: hidden; /* Prevents scrolling the entire page */
+}
+
+.stories-container {
+  display: flex;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  overflow-y: hidden; /* Prevents vertical scrolling */
+  padding: 10px;
+  white-space: nowrap;
+  scrollbar-width: none; /* Hides scrollbar for Firefox */
+}
+
+.stories-container::-webkit-scrollbar {
+  display: none; /* Hides scrollbar for Chrome, Safari, and Opera */
+}
+
+.story {
+  text-align: center;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.story img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #f77737;
+  padding: 2px;
+}
+
+.story p {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #333;
+}
