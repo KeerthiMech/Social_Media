@@ -21,7 +21,7 @@ import Header from "./Home/Component/Header/Header";
 
 export default function App() {
   let routes;
-  const [login, setlogin] = useState(true);
+  const [login, setlogin] = useState(false);
   const [uid, setuid] = useState("");
 
   if (login) {
@@ -60,7 +60,6 @@ export default function App() {
   } else {
     routes = (
       <React.Fragment>
-        <Auth/> 
         <Switch>
         <Route path="/auth">
           <Auth />
@@ -73,7 +72,6 @@ export default function App() {
   return (
     <React.Fragment>
       <Router>
-      <Header/>
         <main>{routes}</main>
       </Router>
     </React.Fragment>
