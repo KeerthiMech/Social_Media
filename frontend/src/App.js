@@ -17,6 +17,7 @@ import Auth from "./Home/Component/Auth/Auth";
 import Likes from "./Home/Component/Header/Likes";
 import Message from "./Home/Component/Header/Message/Message";
 import Stories from "./Home/Component/Stories/Stories";
+import Header from "./Home/Component/Header/Header";
 
 export default function App() {
   let routes;
@@ -72,7 +73,8 @@ export default function App() {
   return (
     <React.Fragment>
       <Router>
-        <FooterNav />
+      <Header/>
+      <FooterNav/>
         <main>{routes}</main>
       </Router>
     </React.Fragment>
