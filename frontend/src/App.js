@@ -45,7 +45,7 @@ export default function App() {
         <Route path="/likes">
           <Likes />
         </Route>
-        <Route path="message">
+        <Route path="/message">
           <Message />
         </Route>
           <Route path="/auth">
@@ -74,7 +74,6 @@ export default function App() {
     <React.Fragment>
       <Router>
       <Header/>
-      <FooterNav/>
         <main>{routes}</main>
       </Router>
     </React.Fragment>

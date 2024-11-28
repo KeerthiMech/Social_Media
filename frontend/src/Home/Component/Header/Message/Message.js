@@ -18,9 +18,11 @@ export default function Message() {
         "GET"
       );
       setmessage(messagedata);
+      navigator('messages/messagestrip');
     } catch (err) {}
   }
-  useEffect(async () => {
+  useEffect(() => {
+    async function fetchmessages() {
     try {
       const chatdata = await sendrequest(
         `http:localhost/${userID}/messages/`,
@@ -28,9 +30,9 @@ export default function Message() {
       );
       setchats(chatdata);
     } catch (err) {}
-  }, []);
+  }}, []);
 
-  const messagecomponent = message.map((msg) => {
+  let messagecomponent = message.map((msg) => {
     return (
       <MessageStrip
         profile={msg.profile}
