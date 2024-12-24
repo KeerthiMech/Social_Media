@@ -3,7 +3,7 @@ import { Formik, Field, Form, ErrorMessage, validateYupSchema } from "formik";
 
 import { Formvalidator } from "../../Common_Comp/Formvalidator";
 import { useHTTPcommunicator } from "../../custom_hook/http-hook";
-import Authcontextprovider,{Authcontext} from "./Authcontextprovider";
+import { Authcontext,Authcontextprovider } from "./Authcontextprovider";
 
 export default function Auth() {
   let authform;
@@ -40,7 +40,7 @@ ws.onopen=() => {
 ws.onerror=(error)=>{
   alert("unable to establish web socket connection");
 }
-if(ws && ws.readyState == WebSocket.OPEN) {
+if(ws && ws.readyState === WebSocket.OPEN) {
   const responsedata = {type:'POST_MESSAGE',content:values};
   ws.onmessage(values);
 }
