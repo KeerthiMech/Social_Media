@@ -1,0 +1,20 @@
+ const{isloading, error, sendrequest, clearerror} = useHTTPcommunicator();
+const formdata = new FormData();
+  formdata.append('name',name);
+  formdata.append('userid',userid);
+  formdata.append('username',username);
+  formdata.append('password',password);
+  const response = await sendrequest('htttp:localhost:3030/post','POST',
+    formdata,
+    {
+      'Content-Type' : 'application/json'
+    }
+  )
+  }catch(err){
+  }
+  values={name :"",
+    userid : "",
+    username :"",
+    password :"",
+    confirmpassword :"",};
+} */
