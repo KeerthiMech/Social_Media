@@ -7,8 +7,8 @@ import { Authcontext,Authcontextprovider } from "./Authcontextprovider";
 
 export default function Auth() {
   let authform;
-  const {login,Toggle} = useContext(Authcontext);
-  const [switchbutton,setswtichbutton] = useState("Login");
+  const { registereduser, Toggle ,switchbutton} = useContext(Authcontext);
+  
 
  async function Authhandler(values) {
   const{name,userid,username,password} = values;
@@ -49,8 +49,11 @@ if(ws && ws.readyState === WebSocket.OPEN) {
 function Loginhandler() {
   console.log("login trigerred");
 }
- if(login) {
-   authform =(<Formik name="signup"
+const formrenderer = () => {
+ if(!registereduser) {
+   return (
+    <>
+   <Formik name="signup"
       initialValues={{
         name :"",
         userid : "",
@@ -80,12 +83,15 @@ function Loginhandler() {
      </Form>
       )}
     </Formik>
+    <h3>Already have a account?</h3>
+    </>
      );
-     <h3>Already have a account Login instead?</h3>
-     setswtichbutton("Login");
+    
  }
- if(!login) {
-   authform =(<Formik name="signup"
+   if(registereduser) {
+   return (
+   <div>
+   <Formik name="signup"
     initialValues={{
       name :"",
       userid : "",
@@ -108,15 +114,18 @@ function Loginhandler() {
     <button type="submit" onClick={Loginhandler}>Login</button>
    </Form>
     )}
-  </Formik> );
-  <h3>Don't have a account? Maybe Create One?</h3>
-  setswtichbutton("Signin");
+  </Formik>
+  <h3>Don't have a account</h3>
+  </div> );
  }
+}
 
   return (
     <React.Fragment>
-      {authform}
+      <div>
+      <main>{formrenderer()}</main>
       <button onClick={Toggle}>{switchbutton}</button>
-    </React.Fragment>
+      </div>
+      </React.Fragment>
   );
 }

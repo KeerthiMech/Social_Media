@@ -2,13 +2,17 @@ import { createContext, useState } from "react";
 
 export const Authcontext= createContext();
 export const Authcontextprovider = (props)=> {
-    const[login,islogin] = useState(true);
+    const [switchbutton,setswtichbutton] = useState("Login");
+    const[registereduser,isregistereduser] = useState(false);
     function Toggle() {
-        islogin(!login);
+        isregistereduser(!registereduser);
+        setswtichbutton(switchbutton === "Login" ? "Signup" : "Login");
     }
     return(
-        <Authcontext.Provider value={{login,Toggle}}>
+        <div>
+        <Authcontext.Provider value={{ registereduser,Toggle,switchbutton }}>
             {props.children}
         </Authcontext.Provider>
+        </div>
     );
 }
