@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useContext } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -18,13 +18,14 @@ import Likes from "./Home/Component/Header/Likes";
 import Message from "./Home/Component/Header/Message/Message";
 import Stories from "./Home/Component/Stories/Stories";
 import Header from "./Home/Component/Header/Header";
+import { Authcontext } from "./Home/Component/Auth/Authcontextprovider";
 
 export default function App() {
   let routes;
-  const [login, setlogin] = useState(false);
+  const { registereduser} = useContext(Authcontext);
   const [uid, setuid] = useState("");
 
-  if (login) {
+  if (registereduser) {
     routes = (
       <Switch>
         <Route path="/home">
