@@ -1,11 +1,27 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 
 import { Authcontext } from "./Authcontextprovider";
 
 export default function Auth() {
+  let authform;
+  const { Toggle ,switchbutton,formrenderer,registereduser} = useContext(Authcontext);
+  let con_URL;
+  function reducer(state,action) {
+    switch(action.type){
+      case "LOGIN":
+        con_URL ="ws://localhost:8080/login";
+      case "SIGNUP":
+        con_URL ="ws://localhost:8080/signup";
+      default:
+        return state;
+    }
+  }
+  const [state,dispatch] = useReducer(reducer,con_URL);
+  if(registereduser){dispatch({type:"LOGIN"})}
+  else{dispatch({type:"SIGNUP"})}
   useEffect(() => {
     try{
-      const ws = new WebSocket('htttp:localhost:3030/post');
+      const ws = new WebSocket({con_URL});
       ws.onopen=() => {
         console.log("connection active");
       }
@@ -15,12 +31,14 @@ export default function Auth() {
       ws.onmessage=(message)=>{
         console.log(message);
       }
+      return () => {
+        ws.close();
+      }
     }catch(error){
       console.log(error);
     }
-  });
-  let authform;
-  const { Toggle ,switchbutton,formrenderer} = useContext(Authcontext);
+  },[con_URL]);
+  
 function Loginhandler() {
   console.log("login trigerred");
 }
