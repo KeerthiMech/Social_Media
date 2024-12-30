@@ -73,7 +73,9 @@ export default function App() {
   return (
     <React.Fragment>
       <Router>
+        <Header/>
         <main>{routes}</main>
+        <FooterNav />
       </Router>
     </React.Fragment>
   );

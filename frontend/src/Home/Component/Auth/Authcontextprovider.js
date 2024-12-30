@@ -7,12 +7,12 @@ import { useHTTPcommunicator } from "../../custom_hook/http-hook";
 export const Authcontext= createContext();
 export const Authcontextprovider = (props,values)=> {
     const [switchbutton,setswtichbutton] = useState("Login");
-    const[registereduser,isregistereduser] = useState(false);
-    const{name,userid,username,password} = values;
+    const[registereduser,isregistereduser] = useState(true);
+    const{name,mailId,username,password} = values;
     const{isloading, error, sendrequest, clearerror} = useHTTPcommunicator();
     const formdata = new FormData();
   formdata.append('name',name);
-  formdata.append('userid',userid);
+  formdata.append('mailId',mailId);
   formdata.append('username',username);
   formdata.append('password',password);
     const initialState = {
@@ -35,17 +35,20 @@ export const Authcontextprovider = (props,values)=> {
         setswtichbutton(switchbutton === "Login" ? "Signup" : "Login");
         dispatch(switchbutton === "Login" ? {type:"SIGNUP"} : {type:"LOGIN"});
     }
-    function Loginhandler() {
-      console.log("login trigerred");
-    }
+    async function Loginhandler() {
+      try{
+      await sendrequest('htttp:localhost:3030/post','GET',JSON.stringify({mailId : mailId,password : password}));
+    }catch(err){}
+  }
     async function SigninHandler() {
       try{
-      await sendrequest('htttp:localhost:3030/post','POST',
-        formdata,
+      const responsedata = await sendrequest('htttp:localhost:3030/post','POST',
+        JSON.stringify({name : name,mailId : mailId,username : username,password : password}),
         {
           'Content-Type' : 'application/json'
         }
       )
+      
       }catch(err){
       }
     }
@@ -56,7 +59,7 @@ export const Authcontextprovider = (props,values)=> {
           <Formik name="signup"
              initialValues={{
                name :"",
-               userid : "",
+               mailId : "",
                username :"",
                password :"",
                confirmpassword :"",
@@ -71,8 +74,8 @@ export const Authcontextprovider = (props,values)=> {
             <Form>
              <Field className="form-control" placeholder="Name" name="name"type="text "/>
              <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
-             <Field className="form-control" placeholder="mobilenumber or Mailid" name="userid" type="text "/>
-             <ErrorMessage name="userid" component="div" style={{ color: 'red' }} />
+             <Field className="form-control" placeholder="mobilenumber or Mailid" name="mailId" type="text "/>
+             <ErrorMessage name="mailId" component="div" style={{ color: 'red' }} />
              <Field className="form-control" placeholder="Username" name="username" type="text "/>
              <ErrorMessage name="username" component="div" style={{ color: 'red' }} />
              <Field className="form-control" placeholder="password" name="password" type="password"/>

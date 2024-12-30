@@ -10,10 +10,10 @@ function FooterNav(props) {
   return (
     <div className="Footer_nav">
       <NavLink to="/home">
-        <img src={homeicon}></img>
+        <img src={homeicon} alt="homeicon"></img>
       </NavLink>
       <NavLink to="/search">
-        <img src={searchicon}> </img>
+        <img src={searchicon}/>
       </NavLink>
       <NavLink to="/newpost">
         <img src={newposticon}></img>
@@ -22,7 +22,7 @@ function FooterNav(props) {
         <img src={reelsicon}></img>
       </NavLink>
       <NavLink to="/profile">
-        <img src=""></img>
+        <img src={profileicon}></img>
       </NavLink>
     </div>
   );
