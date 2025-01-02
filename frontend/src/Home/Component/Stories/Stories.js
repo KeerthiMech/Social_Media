@@ -22,41 +22,37 @@ export default function Stories(props) {
       }
     }
   }, [sendrequest, userId]);
-  if (storydata.length === 0) {
-    setisstoryloaded(false);
-  } else {
-    setisstoryloaded(true);
-  }
+  
 const story = () => {
-  if(isloading) {
-    return <Loadingspinner />
-  }
-  if(!isstoryloaded) {
-    return <WarningModal header="error" content ={error} button="okay"/> 
-  }
-  if(!isloading && isstoryloaded) {
+  if(storydata.length === 0) {
     return (
-      <>
+      <div>
+        <h1>No stories found</h1>
+        <WarningModal header="error" content ="No stories found" button="okay"/>
+      </div>
+      
+    )
+  }
+  else{
+    return(
       <ol>
       {storydata.map((story) => {
     return (
       <li><Storycus
         userprofile={story.userprofile}
         friendly={story.friendly}
-        username={story.username}
+        username={story.username} 
       /></li>
     );
   })
 }
-      </ol>
-      </>
-    )
+</ol>)
   }
 }
   return (
     <React.Fragment>
-      <main>{story()}</main>
+      {isloading && <Loadingspinner />}
+      <main>{ story()}</main>
     </React.Fragment>
   );
 }
-

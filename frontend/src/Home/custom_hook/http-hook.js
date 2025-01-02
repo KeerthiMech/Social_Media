@@ -23,7 +23,6 @@ export const useHTTPcommunicator = () => {
       );
       if (!response.ok) {
         throw responsedata.message;
-        setIsloading(false);
       }
       setIsloading(false);
       return responsedata;

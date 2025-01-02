@@ -31,23 +31,35 @@ export default function Message() {
       setchats(chatdata);
     } catch (err) {}
   }}, []);
-
-  let messagecomponent = message.map((msg) => {
+ const msg =() => {
+  if(message.length === 0 ) {
     return (
-      <MessageStrip
-        profile={msg.profile}
-        username={msg.username}
-        preview={msg.preview}
-        time={msg.time}
-        seencheck={msg.seencheck}
-        onClick={messageOpener}
-      />
-    );
-  });
+      <div>
+        <h3>No messages found</h3>
+      </div>
+    )
+  }
+  else {
+    return (
+      <ol>{message.map((msg) => {
+        return (
+          <ul><MessageStrip
+            profile={msg.profile}
+            username={msg.username}
+            preview={msg.preview}
+            time={msg.time}
+            seencheck={msg.seencheck}
+            onClick={messageOpener}
+          /></ul>
+        );
+      })}</ol>
+    )
+  }
+ }
   return (
     <div>
       {isloading && <Loadingspinner />}
-      {!isloading && { messagecomponent }}
+      <main>{!isloading && msg()}</main>
     </div>
   );
 }
